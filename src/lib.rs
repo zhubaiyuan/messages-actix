@@ -4,6 +4,11 @@ extern crate actix_web;
 use actix_web::{middleware, web, App, HttpRequest, HttpServer, Result};
 use serde::Serialize;
 
+#[derive(Serialize)]
+struct IndexResponse {
+    messages: String,
+}
+
 pub struct MessageApp {
     port: u16,
 }
