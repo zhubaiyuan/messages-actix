@@ -100,6 +100,7 @@ impl MessageApp {
                         .data(web::JsonConfig::default().limit(4096))
                         .route(web::post().to(post)),
                 )
+                .service(clear)
         })
         .bind(("127.0.0.1", self.port))?
         .workers(8)
