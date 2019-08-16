@@ -117,7 +117,7 @@ impl MessageApp {
                     request_count: Cell::new(0),
                     messages: messages.clone(),
                 })
-                .wrap(middleware::Logger::default())
+                .wrap(middleware::Logger::new(LOG_FORMAT))
                 .service(index)
                 .service(
                     web::resource("/send")
