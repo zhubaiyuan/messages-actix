@@ -2,7 +2,7 @@
 extern crate actix_web;
 
 use actix_web::{middleware, web, App, HttpServer, Result};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use std::cell::Cell;
 use std::sync::atomic::{AtomicUsize, Ordering, ATOMIC_USIZE_INIT};
 use std::sync::{Arc, Mutex};
