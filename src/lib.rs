@@ -22,6 +22,18 @@ struct IndexResponse {
     messages: Vec<String>,
 }
 
+#[derive(Deserialize)]
+struct PostInput {
+    message: String,
+}
+
+#[derive(Serialize)]
+struct PostResponse {
+    server_id: usize,
+    request_count: usize,
+    message: String,
+}
+
 #[get("/")]
 fn index(state: web::Data<AppState>) -> Result<web::Json<IndexResponse>> {
     let request_count = state.request_count.get() + 1;
