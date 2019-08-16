@@ -7,6 +7,8 @@ use std::cell::Cell;
 use std::sync::atomic::{AtomicUsize, Ordering, ATOMIC_USIZE_INIT};
 use std::sync::{Arc, Mutex};
 
+static SERVER_COUNTER: AtomicUsize = AtomicUsize::new(0);
+
 #[derive(Serialize)]
 struct IndexResponse {
     message: String,
