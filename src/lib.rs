@@ -3,6 +3,9 @@ extern crate actix_web;
 
 use actix_web::{middleware, web, App, HttpRequest, HttpServer, Result};
 use serde::Serialize;
+use std::cell::Cell;
+use std::sync::atomic::{AtomicUsize, Ordering, ATOMIC_USIZE_INIT};
+use std::sync::{Arc, Mutex};
 
 #[derive(Serialize)]
 struct IndexResponse {
