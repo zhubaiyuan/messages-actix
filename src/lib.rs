@@ -9,6 +9,19 @@ struct IndexResponse {
     messages: String,
 }
 
+#[get("/")]
+fn index(req: HttpRequest) -> Result<web::Json<IndexResponse>> {
+    let hello = req
+        .headers()
+        .get("hello")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or_else(|| "world");
+
+    Ok(web::Json(IndexResponse {
+        message: hello.to_owned(),
+    }))
+}
+
 pub struct MessageApp {
     port: u16,
 }
