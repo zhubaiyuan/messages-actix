@@ -6,7 +6,7 @@ use serde::Serialize;
 
 #[derive(Serialize)]
 struct IndexResponse {
-    messages: String,
+    message: String,
 }
 
 #[get("/")]
