@@ -17,7 +17,9 @@ struct AppState {
 
 #[derive(Serialize)]
 struct IndexResponse {
-    message: String,
+    server_id: usize,
+    request_count: usize,
+    messages: Vec<String>,
 }
 
 #[get("/")]
