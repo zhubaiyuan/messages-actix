@@ -47,6 +47,19 @@ fn index(state: web::Data<AppState>) -> Result<web::Json<IndexResponse>> {
     }))
 }
 
+fn post(msg: web::Json<PostInput>, state: web::Data<AppState>) -> Result<web::Json<PostResponse>> {
+    let request_count = state.request_count.get() + 1;
+    state.request_count.set(request_count);
+    let mut ms = state.messages.lock().unwrap();
+    ms.push(msg.message.clone());
+
+    Ok(web::Json(PostResponse {
+        server_id: state.server_id,
+        request_count,
+        message: msg.message.clone(),
+    }))
+}
+
 pub struct MessageApp {
     port: u16,
 }
