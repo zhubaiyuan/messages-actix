@@ -149,6 +149,7 @@ impl MessageApp {
                         .route(web::post().to(post)),
                 )
                 .service(clear)
+                .service(lookup)
         })
         .bind(("127.0.0.1", self.port))?
         .workers(8)
