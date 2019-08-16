@@ -37,6 +37,13 @@ struct PostResponse {
     message: String,
 }
 
+#[derive(Serialize)]
+struct PostError {
+    server_id: usize,
+    request_count: usize,
+    error: String,
+}
+
 #[get("/")]
 fn index(state: web::Data<AppState>) -> Result<web::Json<IndexResponse>> {
     let request_count = state.request_count.get() + 1;
@@ -75,6 +82,19 @@ fn clear(state: web::Data<AppState>) -> Result<web::Json<IndexResponse>> {
         request_count,
         messages: vec![],
     }))
+}
+
+fn post_error(err: JsonPayloadError, req: &HttpRequest) -> Error {
+    let extns = req.extensions();
+    let state = extns.get::<web::Data<AppState>>().unwrap();
+    let request_count = state.request_count.get() + 1;
+    state.request_count.set(request_count);
+    let post_error = PostError {
+        server_id: state.server_id,
+        request_count,
+        error: format!("{}", err),
+    };
+    InternalError::from_response(err, HttpResponse::BadRequest().json(post_error)).into()
 }
 
 pub struct MessageApp {
