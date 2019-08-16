@@ -10,6 +10,7 @@ use std::cell::Cell;
 use std::sync::atomic::{AtomicUsize, Ordering, ATOMIC_USIZE_INIT};
 use std::sync::{Arc, Mutex};
 
+const LOG_FORMAT: &'static str = r#""%r" %s %b "%{User-Agent}i" %D"#;
 static SERVER_COUNTER: AtomicUsize = AtomicUsize::new(0);
 
 struct AppState {
