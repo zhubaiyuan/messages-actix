@@ -120,7 +120,11 @@ impl MessageApp {
                 .service(index)
                 .service(
                     web::resource("/send")
-                        .data(web::JsonConfig::default().limit(4096))
+                    .data(
+                        web::JsonConfig::default()
+                            .limit(4096)
+                            .error_handler(post_error),
+                    )
                         .route(web::post().to(post)),
                 )
                 .service(clear)
