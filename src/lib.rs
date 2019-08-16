@@ -7,7 +7,7 @@ use actix_web::{
 };
 use serde::{Deserialize, Serialize};
 use std::cell::Cell;
-use std::sync::atomic::{AtomicUsize, Ordering, ATOMIC_USIZE_INIT};
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Arc, Mutex};
 
 const LOG_FORMAT: &'static str = r#""%r" %s %b "%{User-Agent}i" %D"#;
@@ -121,11 +121,11 @@ impl MessageApp {
                 .service(index)
                 .service(
                     web::resource("/send")
-                    .data(
-                        web::JsonConfig::default()
-                            .limit(4096)
-                            .error_handler(post_error),
-                    )
+                        .data(
+                            web::JsonConfig::default()
+                                .limit(4096)
+                                .error_handler(post_error),
+                        )
                         .route(web::post().to(post)),
                 )
                 .service(clear)
