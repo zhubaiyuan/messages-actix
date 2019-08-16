@@ -98,6 +98,13 @@ fn post_error(err: JsonPayloadError, req: &HttpRequest) -> Error {
     InternalError::from_response(err, HttpResponse::BadRequest().json(post_error)).into()
 }
 
+#[derive(Serialize)]
+struct LookupResponse {
+    server_id: usize,
+    request_count: usize,
+    result: Option<String>,
+}
+
 pub struct MessageApp {
     port: u16,
 }
