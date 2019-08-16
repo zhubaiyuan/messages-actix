@@ -81,6 +81,11 @@ impl MessageApp {
                 })
                 .wrap(middleware::Logger::default())
                 .service(index)
+                .service(
+                    web::resource("/send")
+                        .data(web::JsonConfig::default().limit(4096))
+                        .route(web::post().to(post)),
+                )
         })
         .bind(("127.0.0.1", self.port))?
         .workers(8)
